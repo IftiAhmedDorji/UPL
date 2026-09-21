@@ -498,7 +498,8 @@ class Interpreter(vocInit: TheoryValue) {
         val lI = interpretDynamicBoolean(bs.head)
         lI match {
           case BoolValue(true) => if (bs.tail.isEmpty) BoolValue(true) else interpretDynamicBoolean(Implies(bs.tail))
-          case BoolValue(false) => BoolValue(true)
+          // a false hypothesis discharges the implication; a false conclusion refutes it
+          case BoolValue(false) => if (bs.tail.isEmpty) BoolValue(false) else BoolValue(true)
           case _ => Implies(lI::bs.tail)
         }
       }
