@@ -1,16 +1,16 @@
 module logic_to_type_theory {
     // Curry-Howard correspondence as morphisms XCH that translate logical theories X to type-theoretical theories
     
-    PropositionsAsTypes: .concepts.Types -> .concepts.Propositions = t -> .concepts.Propositions {
+    PropositionsAsTypes: .concepts.Types -> .concepts.Propositions = t -> §{
         type prop = t.tp
     }
 
     // doesn't work yet
 
-    // ProofsAsTerms: .concepts.TypedTerms -> .concepts.Proofs = t -> .concepts.Proofs {
-    //     include .concepts.Propositions = PropositionsAsTypes(t)
-    //     type ded(p: prop) = t{tm p}
-    // }
+    ProofsAsTerms: .concepts.TypedTerms -> .concepts.Proofs = t -> §{
+        include .concepts.Propositions = PropositionsAsTypes(t)
+        type ded(p: prop) = t{tm p}
+    }
 
     // LogicCH: .concepts.TypedTerms -> .concepts.Logic = t -> .concepts.Logic {
     //     include .concepts.Proofs = ProofsAsTerms(t)

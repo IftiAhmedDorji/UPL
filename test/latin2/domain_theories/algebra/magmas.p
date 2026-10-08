@@ -1,6 +1,7 @@
 module magmas {
     theory Magma {
         include .sets.Set
+        op: (U, U) -> U # infix ∘
     }
 
     theory MagmaHom {

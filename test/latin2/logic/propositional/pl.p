@@ -26,13 +26,13 @@ module pl {
         include EquivalenceNDI
         include EquivalenceNDE
 
-        // equiv_equivalence: .relations.EquivalenceRelation {
-        //     type carrier = prop
-        //     // type rel = (x, y) -> ded x⇔y
-        //     refl = ???
-        //     sym = ???
-        //     trans = ???
-        // }
+        equiv_equivalence: .relations.EquivalenceRelation {
+            type carrier = prop
+            type rel(c1:carrier, c2:carrier) = ded(c1 ⇔ c2)
+            refl = ???
+            sym = ???
+            trans = ???
+        }
 
         // lindenbaum: .relations.EqualityType {
         //     type carrier = prop
@@ -270,9 +270,11 @@ module pl {
         a -> if(pos) a else PLTest.not(a)
     }
 
-    phi = PLTest{equiv}(PLTest{A}, PLTest{B})
+    // phi = A ⇔ B
+    phi = PLTest{equiv}(PLTest{A}, PLTest{B}) 
     
-    expected_phi = PLTest{and}(
+    // phi_nnf = (¬A ∨ B) ∧ (¬B ∨ A)
+    phi_nnf = PLTest{and}(
         PLTest{or}(
             PLTest{not}(PLTest{A}),
             PLTest{B}
